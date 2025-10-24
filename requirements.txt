@@ -1,3 +1,5 @@
+catboost
+xgboost
 joblib
 streamlit
 pandas
