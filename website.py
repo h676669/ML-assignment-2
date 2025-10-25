@@ -13,10 +13,9 @@ import numpy as np
 def load_model():
     loaded_model = joblib.load("logistic_regression_alzheimers_model.pkl")
     loaded_scaler = joblib.load("standard_scaler_alzheimers.pkl")
-    loaded_label_encoder = joblib.load("label_encoder_alzheimers.pkl")
-    return loaded_model, loaded_scaler, loaded_label_encoder
+    return loaded_model, loaded_scaler
 
-model, scaler, label_encoder = load_model()
+model, scaler = load_model()
 
 # --- Page Configuration ---
 st.set_page_config(page_title="Do You Have Alzheimer's", page_icon="🧠")
