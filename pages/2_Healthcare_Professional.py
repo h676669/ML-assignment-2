@@ -8,7 +8,7 @@ import numpy as np
 @st.cache_resource
 def load_model():
     loaded_model = joblib.load("Cat_Boost_alzheimers_model.pkl")
-    loaded_scaler = joblib.load("standard_scaler_alzheimers.pkl")
+    loaded_scaler = joblib.load("standard_scaler_alzheimers_Cat.pkl")
     return loaded_model, loaded_scaler
 
 model, scaler = load_model()
@@ -141,8 +141,9 @@ if st.button("Assess Alzheimer's Risk"):
 
     # 3. Scale the numerical features
     # Define the columns that need to be scaled
-    columns_to_scale = ['Age', 'BMI', 'AlcoholConsumption', 'PhysicalActivity', 'DietQuality', 'SleepQuality',
-                        'SystolicBP', 'DiastolicBP']
+    columns_to_scale = ['Age','BMI', 'AlcoholConsumption', 'PhysicalActivity', 'DietQuality', 'SleepQuality', 'SystolicBP',
+                        'DiastolicBP','CholesterolTotal','CholesterolLDL','CholesterolHDL','CholesterolTriglycerides',
+                        'MMSE','FunctionalAssessment','ADL']
     input_df[columns_to_scale] = scaler.transform(input_df[columns_to_scale])
 
     # 4. Make a prediction and get probabilities
