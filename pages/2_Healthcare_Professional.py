@@ -1,7 +1,3 @@
-# for å kunne bruke dette lokalt, kjør: streamlit run website.py
-# for å installere alt riktig aktiver py inviroment: .venv\Scripts\Activate.ps1
-# så installer streamlit: pip install streamlit
-# og pandas og numpy: pip install pandas numpy
 import joblib
 import streamlit as st
 import pandas as pd
@@ -11,7 +7,7 @@ import numpy as np
 
 @st.cache_resource
 def load_model():
-    loaded_model = joblib.load("logistic_regression_alzheimers_model.pkl")
+    loaded_model = joblib.load("Cat_Boost_alzheimers_model.pkl")
     loaded_scaler = joblib.load("standard_scaler_alzheimers.pkl")
     return loaded_model, loaded_scaler
 
@@ -70,11 +66,20 @@ st.header("Health Information")
 
 SystolicBP = st.number_input("Systolic Blood Pressure (mm Hg)", min_value=90, max_value=180, value=120)
 DiastolicBP = st.number_input("Diastolic Blood Pressure (mm Hg)", min_value=60, max_value=120, value=80)
+CholesterolTotal = st.number_input("Total Cholesterol (mg/dL)", min_value=150, max_value=300, value=200)
+CholesterolHDL = st.number_input("HDL Cholesterol (mg/dL)", min_value=20, max_value=100, value=50)
+CholesterolLDL = st.number_input("LDL Cholesterol (mg/dL)", min_value=50, max_value=200, value=100)
+CholesterolTriglycerides = st.number_input("Triglycerides (mg/dL)", min_value=50, max_value=400, value=150)
+
 
 # --- Cognitive and Functional Assessments ---
 st.header("Cognitive and Functional Assessments")
+MMSE = st.number_input("Mini-Mental State Examination (MMSE) Score", min_value=0, max_value=30, value=28)
+FunctionalAssessment = st.number_input("Functional Assessment Staging (FAST) Score", min_value=0, max_value=10, value=2)
 MemoryComplaints = st.checkbox("Memory Complaints")
 BehavioralProblems = st.checkbox("Behavioural Problems")
+ADL = st.number_input("Activities of Daily Living (ADL) Score", min_value=0, max_value=10, value=1)
+
 
 # --- Symptom Assessment ---
 st.header("Symptom Assessment")
@@ -115,6 +120,13 @@ if st.button("Assess Alzheimer's Risk"):
         'Hypertension': 1 if Hypertension else 0,
         'SystolicBP': SystolicBP,
         'DiastolicBP': DiastolicBP,
+        'CholesterolTotal': CholesterolTotal,
+        'CholesterolHDL': CholesterolHDL,
+        'CholesterolLDL': CholesterolLDL,
+        'CholesterolTriglycerides': CholesterolTriglycerides,
+        'MMSE': MMSE,
+        'FunctionalAssessment': FunctionalAssessment,
+        'ADL': ADL,
         'MemoryComplaints': 1 if MemoryComplaints else 0,
         'BehavioralProblems': 1 if BehavioralProblems else 0,
         'Confusion': 1 if Confusion else 0,
